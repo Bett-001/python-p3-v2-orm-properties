@@ -110,4 +110,10 @@ class Department:
         sql = "SELECT * FROM departments WHERE name = ?"
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
-
+    def employees(self):
+        """Return list of Employee objects associated with this department"""
+        from employee import Employee  # avoid circular import
+        sql = "SELECT * FROM employees WHERE department_id = ?"
+        CURSOR.execute(sql, (self.id,))
+        rows = CURSOR.fetchall()
+        return [Employee.instance_from_db(row) for row in rows]

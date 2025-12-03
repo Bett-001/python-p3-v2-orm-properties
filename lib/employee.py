@@ -127,3 +127,4 @@ class Employee:
         sql = "SELECT * FROM employees WHERE name = ?"
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
+    
